@@ -1,0 +1,273 @@
+:root {
+    --deep-twilight: #07111f;
+    --bright-teal-blue: #0077b6ff;
+    --blue-green: #0096c7ff;
+    --turquoise-surf: #00b4d8ff;
+    --sky-aqua: #48cae4ff;
+    --frosted-blue: #90e0efff;
+    --frosted-blue-2: #ade8f4ff;
+    --light-cyan: #f4fbff;
+
+    --navy-950: #f6fbff;
+    --navy-900: #eef7fc;
+    --navy-850: #f8fcfe;
+    --navy-800: #e7f3fa;
+    --navy-700: #dcecf6;
+    --navy-600: #4d6a82;
+
+    --text-heading: #0f172a;
+    --text-body: #334155;
+    --text-muted: #64748b;
+
+    --accent-electric: #0077b6ff;
+    --accent-teal: #2b83b7;
+    --accent-blue: #4ea7d7;
+
+    --page-gradient: linear-gradient(135deg, #f8fcff 0%, #edf7fc 42%, #e4f3fa 100%);
+}
+
+html.dark {
+    --navy-950: #07111f;
+    --navy-900: #0f1b2d;
+    --navy-850: #16253b;
+    --navy-800: #1d3046;
+    --navy-700: #2b415c;
+    --navy-600: #8fb7d7;
+
+    --text-heading: #f8fafc;
+    --text-body: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    --accent-electric: #4fd1f7;
+    --accent-teal: #3fa7d6;
+    --accent-blue: #8fd3f0;
+
+    --page-gradient: linear-gradient(135deg, #07111f 0%, #0d1727 45%, #13253c 100%);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--navy-950);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--navy-800);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-electric);
+}
+
+/* Subtle grid background pattern */
+.bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image:
+        linear-gradient(to right, color-mix(in srgb, var(--navy-700) 16%, transparent) 1px, transparent 1px),
+        linear-gradient(to bottom, color-mix(in srgb, var(--navy-700) 16%, transparent) 1px, transparent 1px);
+}
+
+/* Micro-animations */
+@keyframes pulse-slow {
+
+    0%,
+    100% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Text outline hover */
+.hover-outline {
+    transition: all 0.3s ease;
+}
+
+.hover-outline:hover {
+    -webkit-text-stroke: 1px var(--turquoise-surf);
+    color: transparent;
+}
+
+/* =============================================
+   CHANGE 1 — Profile Picture Animations
+============================================= */
+
+/* A) Rotating gradient border */
+@keyframes rotate-border {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.avatar-ring {
+    animation: rotate-border 4s linear infinite;
+}
+
+/* B) Floating avatar container */
+@keyframes avatar-float {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+.avatar-float {
+    animation: avatar-float 3s ease-in-out infinite alternate;
+}
+
+/* C) Hover scan line effect */
+.avatar-scan-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.avatar-scan-wrapper::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -100%;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(0, 180, 216, 0.15) 50%,
+            transparent 100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.avatar-scan-wrapper:hover::after {
+    animation: scan-sweep 1.5s ease-in-out;
+}
+
+@keyframes scan-sweep {
+    0% {
+        top: -100%;
+        opacity: 1;
+    }
+
+    100% {
+        top: 150%;
+        opacity: 1;
+    }
+}
+
+/* =============================================
+   CHANGE 2 — Skill Badge Animations
+============================================= */
+
+/* Entrance state — hidden before observer fires */
+.badge-hidden {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.97);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    will-change: transform;
+}
+
+.badge-visible {
+    opacity: 1 !important;
+    will-change: transform;
+}
+
+/* B) Per-category hover glow */
+.badge-electric:hover {
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent-electric) 35%, transparent);
+}
+
+.badge-teal:hover {
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent-teal) 35%, transparent);
+}
+
+.badge-blue:hover {
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent-blue) 35%, transparent);
+}
+
+.page-gradient-bg {
+    background: var(--page-gradient);
+    transition: background 0.4s ease;
+}
+
+/* Stack Slide Transitions */
+.stack-slide {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateX(14px);
+}
+
+.stack-slide.stack-slide-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+/* Stack Pagination Dots */
+.stack-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: var(--navy-700);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.35s ease;
+}
+
+.stack-dot.stack-dot-active {
+    width: 20px;
+    background: var(--accent-electric);
+}
+
+/* C) Organic drift floating keyframes - tighter range to prevent badge overlap */
+@keyframes drift-soft {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    }
+
+    25% {
+        transform: translate3d(1px, -2px, 0) rotate(-0.4deg) scale(1.005);
+    }
+
+    50% {
+        transform: translate3d(-1px, -3px, 0) rotate(0.4deg) scale(1.008);
+    }
+
+    75% {
+        transform: translate3d(1px, -1.5px, 0) rotate(-0.3deg) scale(1.004);
+    }
+}
+
+.drift-1 {
+    animation: drift-soft 3.3s ease-in-out infinite alternate;
+}
+
+.drift-2 {
+    animation: drift-soft 4.1s ease-in-out infinite alternate;
+    animation-delay: 0.5s;
+}
+
+.drift-3 {
+    animation: drift-soft 4.8s ease-in-out infinite alternate;
+    animation-delay: 0.9s;
+}
